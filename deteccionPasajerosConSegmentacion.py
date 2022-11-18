@@ -15,7 +15,8 @@ class Segmentacion:
             if self.no_video == 1:
                 self.video = cv2.VideoCapture('videos/2015_05_12_10_49_54FrontColor.avi', )  # gente normal
             elif self.no_video == 2:
-                self.video = cv2.VideoCapture('videos/2015_05_12_13_29_08FrontColor.avi',)#sombrero
+                self.video = cv2.VideoCapture('videos/2015_05_11_19_59_19FrontColor.avi',)#sombrero
+                print(no_video)
             elif self.no_video == 3:
                 self.video = cv2.VideoCapture('videos/2015_05_12_15_33_24FrontColor.avi',) #senior pelon
             else:
@@ -43,12 +44,13 @@ class Segmentacion:
         #plt.subplot(1, 2, 2)
         #plt.imshow(hsv_to_rgb(dw_square))
         #plt.show()
-
+        print("antes de while")
         while(self.video.isOpened()):
+            print("antes de ret")
             ret, frame = self.video.read()
             if (ret == True):
+                print("entra")
 
-                '''
                 frame_gris = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # pasando la imagen a grises
                 frame_gris = cv2.LUT(frame_gris,table) #aplicacion de mejora de gamma de imagen
 
@@ -73,7 +75,7 @@ class Segmentacion:
                 cv2.imshow("IMAGEN", frame_gris)
                 cv2.imshow("BUS", frame)
                 cv2.imshow("BUSQUEDA", busqueda)
-                '''
+
 
                 frame_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
                 frame_hsv = frame_hsv[0:170, 80:280]
@@ -98,6 +100,7 @@ class Segmentacion:
                 if (cv2.waitKey(30) == ord('s')):
                     break
             else:
+                self.video.release()
                 cv2.destroyAllWindows()
                 break
 
@@ -108,8 +111,8 @@ class Segmentacion:
 
     def tracking(self):
         pass
-for i in range(0,5):
-    sg = Segmentacion(1)
-    sg.videoSegmentar()
+#for i in range(0,5):
+sg = Segmentacion(2)
+sg.videoSegmentar()
 
 
